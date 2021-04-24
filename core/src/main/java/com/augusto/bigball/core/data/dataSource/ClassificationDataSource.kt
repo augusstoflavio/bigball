@@ -1,8 +1,9 @@
-package com.augusto.bigball.core.domain.repository
+package com.augusto.bigball.core.data.dataSource
 
 import com.augusto.bigball.core.domain.entity.PlayerPoints
 import com.augusto.bigball.core.domain.entity.Result
 
-interface ClassificationRepository {
+interface ClassificationDataSource {
     suspend fun getClassification(): Result<List<PlayerPoints>>
+
 }
