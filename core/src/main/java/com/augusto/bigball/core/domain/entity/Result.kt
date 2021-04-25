@@ -7,7 +7,7 @@ sealed class Result<out T> {
     data class Failure(val error: Error) : Result<Nothing>()
 
     data class Error(
-        var message: String,
-        var code: Int? = null
+        val message: String,
+        val code: Int? = null
     )
 }
