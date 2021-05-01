@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Bigball</string>
+    <string name="invalid_username">Usuário inválido</string>
+    <string name="invalid_password">Password inválido</string>
+    <string name="invalid_name">Nome inválido</string>
 </resources>
