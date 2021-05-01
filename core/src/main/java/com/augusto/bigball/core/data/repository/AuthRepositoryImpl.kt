@@ -10,7 +10,7 @@ class AuthRepositoryImpl(private val authDataSource: AuthDataSource) : AuthRepos
         return authDataSource.signin(email, password)
     }
 
-    override suspend fun signup(name: String, email: String, password: String): Result<Boolean> {
-        return authDataSource.signup(name, email, password)
+    override suspend fun signup(name: String, email: String, password: String, passwordConfirmation: String): Result<Boolean> {
+        return authDataSource.signup(name, email, password, passwordConfirmation)
     }
 }
