@@ -6,7 +6,7 @@ import com.augusto.bigball.core.domain.repository.AuthRepository
 
 class AuthRepositoryImpl(private val authDataSource: AuthDataSource) : AuthRepository {
 
-    override suspend fun signin(email: String, password: String): Result<Boolean> {
+    override suspend fun signin(email: String, password: String): Result<String> {
         return authDataSource.signin(email, password)
     }
 
