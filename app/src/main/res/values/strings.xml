@@ -3,4 +3,9 @@
     <string name="invalid_username">Usuário inválido</string>
     <string name="invalid_password">Password inválido</string>
     <string name="invalid_name">Nome inválido</string>
+    <string name="bolao_2021">Bolão 2021</string>
+    <string name="email">Email</string>
+    <string name="name">Nome</string>
+    <string name="senha">Senha</string>
+    <string name="cadastre_se">Cadastre-se</string>
 </resources>

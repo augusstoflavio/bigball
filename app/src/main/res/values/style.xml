@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseButton">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">@dimen/size13</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:background">@drawable/bg_yellow_button</item>
+        <item name="android:paddingTop">@dimen/spacing5</item>
+        <item name="android:paddingBottom">@dimen/spacing7</item>
+        <item name="android:paddingBottom">@dimen/spacing7</item>
+    </style>
+
+    <style name="BaseInput">
+        <item name="android:layout_height">@dimen/spacing40</item>
+        <item name="android:fontFamily">@font/roboto_thin</item>
+        <item name="android:padding">@dimen/spacing7</item>
+        <item name="android:textSize">@dimen/size14</item>
+        <item name="android:background">@drawable/bg_white_input</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="BaseLabelInput">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textColor">@color/primary_blue</item>
+        <item name="android:textSize">@dimen/size12</item>
+    </style>
+</resources>
