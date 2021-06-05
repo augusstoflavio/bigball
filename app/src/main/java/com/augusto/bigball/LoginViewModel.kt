@@ -37,7 +37,7 @@ class LoginViewModel(
     private fun getErrorEmail(): Int? {
         if (email.isNullOrEmpty()) {
             return R.string.required_email
-        } else if (emailValidator.isValid(email = email ?: "")) {
+        } else if (!emailValidator.isValid(email = email!!)) {
             return R.string.invalid_email
         }
 
@@ -48,7 +48,7 @@ class LoginViewModel(
         if (password.isNullOrEmpty()) {
             return R.string.required_password
         } else if (password!!.length < 5) {
-            return R.string.invalid_password
+            return R.string.invalid_size_password
         }
 
         return null
