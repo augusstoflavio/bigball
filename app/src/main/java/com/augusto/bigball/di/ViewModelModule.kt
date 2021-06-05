@@ -1,5 +1,6 @@
 package com.augusto.bigball.di
 
+import com.augusto.bigball.LoginViewModel
 import com.augusto.bigball.core.domain.useCase.Signup
 import com.augusto.bigball.data.validator.EmailValidatorImpl
 import com.augusto.bigball.presentation.login.viewmodel.LoginHomeViewModel
@@ -21,5 +22,9 @@ val viewModelModule = module {
 
     viewModel {
         LoginHomeViewModel(get())
+    }
+
+    viewModel {
+        LoginViewModel(Dispatchers.IO, EmailValidatorImpl())
     }
 }
