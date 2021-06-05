@@ -8,4 +8,11 @@
     <string name="name">Nome</string>
     <string name="senha">Senha</string>
     <string name="cadastre_se">Cadastre-se</string>
+    <string name="signin">Entrar</string>
+    <string name="password">Senha</string>
+
+    <string name="required_email">É necessário preencher o e-mail</string>
+    <string name="invalid_email">O e-mail é inválido</string>
+    <string name="required_password">É necessário preencher a senha</string>
+    <string name="invalid_size_password">A senha deverá ter no mínimo 5 caracteres</string>
 </resources>

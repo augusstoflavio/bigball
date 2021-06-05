@@ -3,6 +3,7 @@ package com.augusto.bigball
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.MutableLiveData
 import com.augusto.bigball.data.validator.EmailValidator
 import com.augusto.bigball.presentation.bases.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -11,6 +12,8 @@ class LoginViewModel(
     private val defaultDispatcher: CoroutineDispatcher,
     private val emailValidator: EmailValidator
 ) : BaseViewModel(defaultDispatcher) {
+
+    val logado = MutableLiveData<Boolean>()
 
     var email by mutableStateOf<String?>(null)
         private set
@@ -31,21 +34,21 @@ class LoginViewModel(
         )
     }
 
-    private fun getErrorEmail(): String? {
+    private fun getErrorEmail(): Int? {
         if (email.isNullOrEmpty()) {
-            return "O e-mail deve ser o obrigatório"
+            return R.string.required_email
         } else if (emailValidator.isValid(email = email ?: "")) {
-            return "E-mail inválido"
+            return R.string.invalid_email
         }
 
         return null
     }
 
-    private fun getErrorPassword(): String? {
+    private fun getErrorPassword(): Int? {
         if (password.isNullOrEmpty()) {
-            return "A senha é obrigatória"
+            return R.string.required_password
         } else if (password!!.length < 5) {
-            return "A senha deverá ter mais de 5 caracteres"
+            return R.string.invalid_password
         }
 
         return null
@@ -70,12 +73,15 @@ class LoginViewModel(
             loadingForm = false
             return
         }
+
+//        logado.postValue(true)
+//        loadingForm = false
     }
 }
 
 data class LoginFormState(
-    var errorEmail: String? = null,
-    var errorPassword: String? = null,
+    var errorEmail: Int? = null,
+    var errorPassword: Int? = null,
 ) {
 
     fun isValid(): Boolean = errorEmail == null && errorPassword == null

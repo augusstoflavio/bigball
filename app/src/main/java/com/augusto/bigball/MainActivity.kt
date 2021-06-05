@@ -1,21 +1,24 @@
 package com.augusto.bigball
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.augusto.bigball.presentation.InputText
+import com.augusto.bigball.presentation.Loading
+import com.augusto.bigball.presentation.PrimaryButton
 import com.augusto.bigball.ui.theme.BigBallTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,9 +31,24 @@ class MainActivity : AppCompatActivity() {
         setContent {
             MainActivityScreen()
         }
+
+        setupObservables()
     }
 
-    @Preview(showBackground = true)
+    private fun setupObservables() {
+        _viewModel.error.observe(this, {
+            it?.let {
+                Toast.makeText(this, it.error.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        _viewModel.logado.observe(this, {
+            if (it) {
+                Toast.makeText(this, "Login realizado", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     @Composable
     fun MainActivityScreen() {
         BigBallTheme {
@@ -49,9 +67,11 @@ class MainActivity : AppCompatActivity() {
                         Spacer(modifier = Modifier.height(58.dp))
 
                         InputText(
-                            label = "E-mail",
+                            label = stringResource(id = R.string.email),
                             value = _viewModel.email,
-                            error = _viewModel.loginFormState.errorEmail,
+                            error = if (_viewModel.loginFormState.errorEmail != null) stringResource(
+                                id = _viewModel.loginFormState.errorEmail!!
+                            ) else null,
                             enabled = !_viewModel.loadingForm,
                             onValueChange = {
                                 _viewModel.onChangeEmail(it)
@@ -61,10 +81,12 @@ class MainActivity : AppCompatActivity() {
                         Spacer(modifier = Modifier.height(16.dp))
 
                         InputText(
-                            label = "Senha",
+                            label = stringResource(id = R.string.password),
                             value = _viewModel.password,
                             visualTransformation = PasswordVisualTransformation(),
-                            error = _viewModel.loginFormState.errorPassword,
+                            error = if (_viewModel.loginFormState.errorPassword != null) stringResource(
+                                id = _viewModel.loginFormState.errorPassword!!
+                            ) else null,
                             enabled = !_viewModel.loadingForm,
                             onValueChange = {
                                 _viewModel.onChangePassword(it)
@@ -72,30 +94,25 @@ class MainActivity : AppCompatActivity() {
                         )
 
                         Spacer(modifier = Modifier.height(24.dp))
-
-                        Button(
-                            onClick = { _viewModel.onLogin() },
-                            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                        
+                        PrimaryButton(
                             modifier = Modifier.fillMaxWidth(),
+                            text = stringResource(id = R.string.signin),
                             enabled = !_viewModel.loadingForm && _viewModel.loginFormState.isValid()
                         ) {
-                            Text(text = "Entrar")
+                            _viewModel.onLogin()
                         }
                     }
 
                     if (_viewModel.loadingForm) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            CircularProgressIndicator(color = MaterialTheme.colors.secondary)
-                        }
+                        Loading()
                     }
                 }
             }
         }
     }
+
+
 
     @Composable
     fun Logo() {
@@ -104,7 +121,7 @@ class MainActivity : AppCompatActivity() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Bolão 2021",
+                text = stringResource(id = R.string.bolao_2021),
                 style = MaterialTheme.typography.h5
             )
 
@@ -115,33 +132,5 @@ class MainActivity : AppCompatActivity() {
                 contentDescription = "Logo"
             )
         }
-    }
-
-    @Composable
-    fun InputText(
-        modifier: Modifier = Modifier,
-        label: String,
-        value: String?,
-        error: String? = null,
-        onValueChange: (String) -> Unit,
-        enabled: Boolean = true,
-        visualTransformation: VisualTransformation = VisualTransformation.None
-    ) {
-        TextField(
-            modifier = modifier.fillMaxWidth(),
-            value = value ?: "",
-            onValueChange = onValueChange,
-            colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.White, textColor = Color.Black),
-            maxLines = 1,
-            visualTransformation = visualTransformation,
-            label = {
-                Text(
-                    text = if (!error.isNullOrEmpty()) error
-                    else label
-                )
-            },
-            enabled = enabled,
-            isError = !error.isNullOrEmpty(),
-        )
     }
 }
