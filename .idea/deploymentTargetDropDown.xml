@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\afmen\.android\avd\Moto_G9_Play_API_29.avd" />
+            <type value="SERIAL_NUMBER" />
+            <value value="3bbb8580" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2021-06-05T17:15:07.341807400Z" />
+    <timeTargetWasSelectedWithDropDown value="2021-06-05T17:31:23.885571500Z" />
   </component>
 </project>

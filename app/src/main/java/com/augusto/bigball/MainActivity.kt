@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -36,48 +37,60 @@ class MainActivity : AppCompatActivity() {
             Surface(
                 color = MaterialTheme.colors.primary
             ) {
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(32.dp)) {
+                Box {
+                    Column(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(32.dp)) {
 
-                    Spacer(modifier = Modifier.height(94.dp))
+                        Spacer(modifier = Modifier.height(94.dp))
 
-                    Logo()
+                        Logo()
 
-                    Spacer(modifier = Modifier.height(58.dp))
+                        Spacer(modifier = Modifier.height(58.dp))
 
-                    InputText(
-                        label = "E-mail",
-                        value = _viewModel.email,
-                        error = _viewModel.loginFormState.errorEmail,
-                        enabled = !_viewModel.loadingForm,
-                        onValueChange = {
-                            _viewModel.onChangeEmail(it)
+                        InputText(
+                            label = "E-mail",
+                            value = _viewModel.email,
+                            error = _viewModel.loginFormState.errorEmail,
+                            enabled = !_viewModel.loadingForm,
+                            onValueChange = {
+                                _viewModel.onChangeEmail(it)
+                            }
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        InputText(
+                            label = "Senha",
+                            value = _viewModel.password,
+                            visualTransformation = PasswordVisualTransformation(),
+                            error = _viewModel.loginFormState.errorPassword,
+                            enabled = !_viewModel.loadingForm,
+                            onValueChange = {
+                                _viewModel.onChangePassword(it)
+                            },
+                        )
+
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        Button(
+                            onClick = { _viewModel.onLogin() },
+                            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                            modifier = Modifier.fillMaxWidth(),
+                            enabled = !_viewModel.loadingForm && _viewModel.loginFormState.isValid()
+                        ) {
+                            Text(text = "Entrar")
                         }
-                    )
+                    }
 
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    InputText(
-                        label = "Senha",
-                        value = _viewModel.password,
-                        visualTransformation = PasswordVisualTransformation(),
-                        error = _viewModel.loginFormState.errorPassword,
-                        enabled = !_viewModel.loadingForm,
-                        onValueChange = {
-                            _viewModel.onChangePassword(it)
-                        },
-                    )
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    Button(
-                        onClick = { _viewModel.onLogin() },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = !_viewModel.loadingForm && _viewModel.loginFormState.isValid()
-                    ) {
-                        Text(text = "Entrar")
+                    if (_viewModel.loadingForm) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            CircularProgressIndicator(color = MaterialTheme.colors.secondary)
+                        }
                     }
                 }
             }
