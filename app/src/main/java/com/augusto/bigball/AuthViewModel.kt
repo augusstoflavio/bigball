@@ -8,7 +8,7 @@ import com.augusto.bigball.data.validator.EmailValidator
 import com.augusto.bigball.presentation.bases.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 
-class LoginViewModel(
+class AuthViewModel(
     private val defaultDispatcher: CoroutineDispatcher,
     private val emailValidator: EmailValidator
 ) : BaseViewModel(defaultDispatcher) {
