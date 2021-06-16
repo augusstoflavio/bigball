@@ -14,14 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.augusto.bigball.presentation.InputText
 import com.augusto.bigball.presentation.Loading
 import com.augusto.bigball.presentation.PrimaryButton
 import com.augusto.bigball.ui.theme.BigBallTheme
 
 @Composable
-fun SigninScreen(authViewModel: AuthViewModel, toSignup: () -> Unit) {
+fun SigninScreen(signinViewModel: SigninViewModel, toSignup: () -> Unit) {
     BigBallTheme {
         Surface(
             color = MaterialTheme.colors.primary
@@ -39,13 +38,13 @@ fun SigninScreen(authViewModel: AuthViewModel, toSignup: () -> Unit) {
 
                     InputText(
                         label = stringResource(id = R.string.email),
-                        value = authViewModel.email,
-                        error = if (authViewModel.loginFormState.errorEmail != null) stringResource(
-                            id = authViewModel.loginFormState.errorEmail!!
+                        value = signinViewModel.email,
+                        error = if (signinViewModel.signinFormState.errorEmail != null) stringResource(
+                            id = signinViewModel.signinFormState.errorEmail!!
                         ) else null,
-                        enabled = !authViewModel.loadingForm,
+                        enabled = !signinViewModel.loadingForm,
                         onValueChange = {
-                            authViewModel.onChangeEmail(it)
+                            signinViewModel.onChangeEmail(it)
                         }
                     )
 
@@ -53,14 +52,14 @@ fun SigninScreen(authViewModel: AuthViewModel, toSignup: () -> Unit) {
 
                     InputText(
                         label = stringResource(id = R.string.password),
-                        value = authViewModel.password,
+                        value = signinViewModel.password,
                         visualTransformation = PasswordVisualTransformation(),
-                        error = if (authViewModel.loginFormState.errorPassword != null) stringResource(
-                            id = authViewModel.loginFormState.errorPassword!!
+                        error = if (signinViewModel.signinFormState.errorPassword != null) stringResource(
+                            id = signinViewModel.signinFormState.errorPassword!!
                         ) else null,
-                        enabled = !authViewModel.loadingForm,
+                        enabled = !signinViewModel.loadingForm,
                         onValueChange = {
-                            authViewModel.onChangePassword(it)
+                            signinViewModel.onChangePassword(it)
                         },
                     )
 
@@ -69,9 +68,9 @@ fun SigninScreen(authViewModel: AuthViewModel, toSignup: () -> Unit) {
                     PrimaryButton(
                         modifier = Modifier.fillMaxWidth(),
                         text = stringResource(id = R.string.signin),
-                        enabled = !authViewModel.loadingForm && authViewModel.loginFormState.isValid()
+                        enabled = !signinViewModel.loadingForm && signinViewModel.signinFormState.isValid()
                     ) {
-                        authViewModel.onLogin()
+                        signinViewModel.onLogin()
                     }
 
                     Spacer(modifier = Modifier.height(73.dp))
@@ -90,7 +89,7 @@ fun SigninScreen(authViewModel: AuthViewModel, toSignup: () -> Unit) {
                     }
                 }
 
-                if (authViewModel.loadingForm) {
+                if (signinViewModel.loadingForm) {
                     Loading()
                 }
             }

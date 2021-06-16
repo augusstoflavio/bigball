@@ -1,10 +1,8 @@
 package com.augusto.bigball.di
 
-import com.augusto.bigball.AuthViewModel
 import com.augusto.bigball.core.domain.useCase.Signup
 import com.augusto.bigball.data.validator.EmailValidatorImpl
 import com.augusto.bigball.presentation.login.viewmodel.LoginHomeViewModel
-import com.augusto.bigball.presentation.login.viewmodel.SigninViewModel
 import com.augusto.bigball.presentation.login.viewmodel.SignupViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -25,6 +23,6 @@ val viewModelModule = module {
     }
 
     viewModel {
-        AuthViewModel(Dispatchers.IO, EmailValidatorImpl())
+        com.augusto.bigball.SigninViewModel(Dispatchers.IO, EmailValidatorImpl())
     }
 }

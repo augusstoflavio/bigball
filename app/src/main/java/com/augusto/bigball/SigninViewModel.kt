@@ -8,7 +8,7 @@ import com.augusto.bigball.data.validator.EmailValidator
 import com.augusto.bigball.presentation.bases.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 
-class AuthViewModel(
+class SigninViewModel(
     private val defaultDispatcher: CoroutineDispatcher,
     private val emailValidator: EmailValidator
 ) : BaseViewModel(defaultDispatcher) {
@@ -21,14 +21,14 @@ class AuthViewModel(
     var password by mutableStateOf<String?>(null)
         private set
 
-    var loginFormState by mutableStateOf(LoginFormState())
+    var signinFormState by mutableStateOf(SigninFormState())
         private set
 
     var loadingForm by mutableStateOf(false)
         private set
 
     private fun validFields() {
-        loginFormState = LoginFormState(
+        signinFormState = SigninFormState(
             errorEmail = getErrorEmail(),
             errorPassword = getErrorPassword()
         )
@@ -56,12 +56,12 @@ class AuthViewModel(
 
     fun onChangeEmail(email: String) {
         this.email = email
-        loginFormState.errorEmail = getErrorEmail()
+        signinFormState.errorEmail = getErrorEmail()
     }
 
     fun onChangePassword(password: String) {
         this.password = password
-        loginFormState.errorPassword = getErrorPassword()
+        signinFormState.errorPassword = getErrorPassword()
     }
 
     fun onLogin() {
@@ -69,7 +69,7 @@ class AuthViewModel(
 
         validFields()
 
-        if (!loginFormState.isValid()) {
+        if (!signinFormState.isValid()) {
             loadingForm = false
             return
         }
@@ -79,7 +79,7 @@ class AuthViewModel(
     }
 }
 
-data class LoginFormState(
+data class SigninFormState(
     var errorEmail: Int? = null,
     var errorPassword: Int? = null,
 ) {

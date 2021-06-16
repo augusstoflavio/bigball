@@ -11,7 +11,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AuthActivity : AppCompatActivity() {
 
-    private val _viewModel: AuthViewModel by viewModel()
+    private val _signinViewModel: SigninViewModel by viewModel()
+    private val _signupViewModel: SignupViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,13 +23,14 @@ class AuthActivity : AppCompatActivity() {
             NavHost(navController = navController, startDestination = Destinations.Signin) {
                 composable(Destinations.Signin) {
                     SigninScreen(
-                        authViewModel = _viewModel,
+                        signinViewModel = _signinViewModel,
                         toSignup = actions.toSignup
                     )
                 }
                 composable(Destinations.Signup) {
                     SignupScreen(
-                        authViewModel = _viewModel
+                        signupViewModel = _signupViewModel,
+                        toBack = actions.navigateUp
                     )
                 }
             }
