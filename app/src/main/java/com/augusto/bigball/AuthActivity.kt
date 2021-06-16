@@ -20,14 +20,14 @@ class AuthActivity : AppCompatActivity() {
             val navController = rememberNavController()
             val actions = remember(navController) { Actions(navController) }
 
-            NavHost(navController = navController, startDestination = Destinations.Signin) {
-                composable(Destinations.Signin) {
+            NavHost(navController = navController, startDestination = Screen.Signin.route) {
+                composable(Screen.Signin.route) {
                     SigninScreen(
                         signinViewModel = _signinViewModel,
                         toSignup = actions.toSignup
                     )
                 }
-                composable(Destinations.Signup) {
+                composable(Screen.Signup.route) {
                     SignupScreen(
                         signupViewModel = _signupViewModel,
                         toBack = actions.navigateUp
