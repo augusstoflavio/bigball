@@ -1,4 +1,4 @@
-package com.augusto.bigball
+package com.augusto.bigball.ui.features.auth.signup
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.augusto.bigball.R
 import com.augusto.bigball.presentation.InputText
 import com.augusto.bigball.presentation.PrimaryButton
 import com.augusto.bigball.ui.theme.BigBallTheme

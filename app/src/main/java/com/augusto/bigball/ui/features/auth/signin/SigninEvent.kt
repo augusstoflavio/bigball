@@ -1,4 +1,4 @@
-package com.augusto.bigball
+package com.augusto.bigball.ui.features.auth.signin
 
 sealed class SigninEvent {
     object Signin : SigninEvent()

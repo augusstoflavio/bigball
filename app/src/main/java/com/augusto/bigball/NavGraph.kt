@@ -6,24 +6,6 @@ import com.augusto.bigball.ui.navigation.NavigationCommand
 import kotlinx.coroutines.flow.MutableStateFlow
 
 
-object AuthDirections {
-
-    val signup  = object : NavigationCommand {
-
-        override val arguments = emptyList<NamedNavArgument>()
-
-        override val destination = "signup"
-
-    }
-
-    val signin = object : NavigationCommand {
-
-        override val arguments = emptyList<NamedNavArgument>()
-
-        override val destination = "signin"
-    }
-}
-
 sealed class Screen(val route: String) {
     object Signup: Screen("signup")
     object Signin: Screen("signin")

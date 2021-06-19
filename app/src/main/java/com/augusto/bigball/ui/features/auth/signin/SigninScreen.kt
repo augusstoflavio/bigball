@@ -1,6 +1,5 @@
-package com.augusto.bigball
+package com.augusto.bigball.ui.features.auth.signin
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -9,11 +8,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.augusto.bigball.R
 import com.augusto.bigball.presentation.InputText
 import com.augusto.bigball.presentation.Loading
 import com.augusto.bigball.presentation.PrimaryButton
@@ -26,9 +25,11 @@ fun SigninScreen(signinFormState: SigninFormState, handleEvent: (signinEvent: Si
             color = MaterialTheme.colors.primary
         ) {
             Box {
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(32.dp)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(32.dp)
+                ) {
 
                     Spacer(modifier = Modifier.height(94.dp))
 
@@ -94,27 +95,5 @@ fun SigninScreen(signinFormState: SigninFormState, handleEvent: (signinEvent: Si
                 }
             }
         }
-    }
-}
-
-
-
-@Composable
-fun Logo() {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = stringResource(id = R.string.bolao_2021),
-            style = MaterialTheme.typography.h5
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Image(
-            painter = painterResource(R.drawable.ic_futebol_1),
-            contentDescription = "Logo"
-        )
     }
 }
