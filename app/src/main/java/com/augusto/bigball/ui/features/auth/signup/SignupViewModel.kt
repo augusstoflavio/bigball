@@ -1,9 +1,10 @@
-package com.augusto.bigball
+package com.augusto.bigball.ui.features.auth.signup
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
+import com.augusto.bigball.R
 import com.augusto.bigball.data.validator.EmailValidator
 import com.augusto.bigball.presentation.bases.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -93,18 +94,4 @@ class SignupViewModel(
 //        logado.postValue(true)
 //        loadingForm = false
     }
-}
-
-
-data class SignupFormState(
-    var errorName: Int? = null,
-    var errorEmail: Int? = null,
-    var errorPassword: Int? = null,
-    var errorPasswordConfirmation: Int? = null,
-) {
-
-    fun isValid(): Boolean = errorName == null &&
-            errorEmail == null &&
-            errorPassword == null &&
-            errorPasswordConfirmation == null
 }

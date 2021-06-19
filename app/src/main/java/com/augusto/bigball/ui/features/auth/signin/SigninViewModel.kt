@@ -1,10 +1,12 @@
-package com.augusto.bigball
+package com.augusto.bigball.ui.features.auth.signin
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.augusto.bigball.R
 import com.augusto.bigball.data.validator.EmailValidator
 import com.augusto.bigball.presentation.bases.BaseViewModel
+import com.augusto.bigball.ui.features.auth.AuthDirections
 import com.augusto.bigball.ui.navigation.NavigationManager
 import kotlinx.coroutines.CoroutineDispatcher
 
@@ -82,14 +84,4 @@ class SigninViewModel(
             }
         }
     }
-}
-
-data class SigninFormState(
-    var errorEmail: Int? = null,
-    var errorPassword: Int? = null,
-    var email: String? = null,
-    var password: String? = null,
-    var isLoading: Boolean = false
-) {
-    fun isValid(): Boolean = errorEmail == null && errorPassword == null
 }
