@@ -3,16 +3,17 @@ package com.augusto.bigball
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class AuthActivity : AppCompatActivity() {
 
-    private val _signinViewModel: SigninViewModel by viewModel()
-    private val _signupViewModel: SignupViewModel by viewModel()
+    val navigationManager: NavigationManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,16 +21,24 @@ class AuthActivity : AppCompatActivity() {
             val navController = rememberNavController()
             val actions = remember(navController) { Actions(navController) }
 
-            NavHost(navController = navController, startDestination = Screen.Signin.route) {
-                composable(Screen.Signin.route) {
+            navigationManager.commands.collectAsState().value.also { command ->
+                if (command.destination.isNotEmpty()) {
+                    navController.navigate(command.destination)
+                }
+            }
+
+            NavHost(navController = navController, startDestination = NavigationDirections.signin.destination) {
+                composable(NavigationDirections.signin.destination) {
+                    val vm = getViewModel<SigninViewModel>()
                     SigninScreen(
-                        signinViewModel = _signinViewModel,
-                        toSignup = actions.toSignup
+                        signinFormState = vm.signinFormState,
+                        handleEvent = vm::handleEvent
                     )
                 }
-                composable(Screen.Signup.route) {
+                composable(NavigationDirections.signup.destination) {
+                    val vm = getViewModel<SignupViewModel>()
                     SignupScreen(
-                        signupViewModel = _signupViewModel,
+                        signupViewModel = vm,
                         toBack = actions.navigateUp
                     )
                 }

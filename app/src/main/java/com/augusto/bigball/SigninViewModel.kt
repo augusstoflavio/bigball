@@ -3,86 +3,92 @@ package com.augusto.bigball
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.MutableLiveData
 import com.augusto.bigball.data.validator.EmailValidator
 import com.augusto.bigball.presentation.bases.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 
 class SigninViewModel(
     private val defaultDispatcher: CoroutineDispatcher,
-    private val emailValidator: EmailValidator
+    private val emailValidator: EmailValidator,
+    private val navigationManager: NavigationManager
 ) : BaseViewModel(defaultDispatcher) {
-
-    val logado = MutableLiveData<Boolean>()
-
-    var email by mutableStateOf<String?>(null)
-        private set
-
-    var password by mutableStateOf<String?>(null)
-        private set
 
     var signinFormState by mutableStateOf(SigninFormState())
         private set
 
-    var loadingForm by mutableStateOf(false)
-        private set
-
     private fun validFields() {
-        signinFormState = SigninFormState(
-            errorEmail = getErrorEmail(),
-            errorPassword = getErrorPassword()
+        signinFormState = signinFormState.copy(
+            errorPassword = getErrorPassword(signinFormState.password),
+            errorEmail = getErrorPassword(signinFormState.email)
         )
     }
 
-    private fun getErrorEmail(): Int? {
+    private fun getErrorEmail(email: String?): Int? {
         if (email.isNullOrEmpty()) {
             return R.string.required_email
-        } else if (!emailValidator.isValid(email = email!!)) {
+        } else if (!emailValidator.isValid(email = email)) {
             return R.string.invalid_email
         }
 
         return null
     }
 
-    private fun getErrorPassword(): Int? {
+    private fun getErrorPassword(password: String?): Int? {
         if (password.isNullOrEmpty()) {
             return R.string.required_password
-        } else if (password!!.length < 5) {
+        } else if (password.length < 5) {
             return R.string.invalid_size_password
         }
 
         return null
     }
 
-    fun onChangeEmail(email: String) {
-        this.email = email
-        signinFormState.errorEmail = getErrorEmail()
+    private fun onChangeEmail(email: String) {
+        signinFormState = signinFormState.copy(email = email, errorEmail = getErrorEmail(email = email))
     }
 
-    fun onChangePassword(password: String) {
-        this.password = password
-        signinFormState.errorPassword = getErrorPassword()
+    private fun onChangePassword(password: String) {
+        signinFormState = signinFormState.copy(password = password, errorPassword = getErrorPassword(password = password))
     }
 
-    fun onLogin() {
-        loadingForm = true
+    private fun onLogin() {
+        signinFormState = signinFormState.copy(isLoading = true)
 
         validFields()
 
         if (!signinFormState.isValid()) {
-            loadingForm = false
+            signinFormState = signinFormState.copy(isLoading = false)
             return
         }
 
-//        logado.postValue(true)
-//        loadingForm = false
+        signinFormState = signinFormState.copy(isLoading = false)
+        navigationManager.navigate(NavigationDirections.signup)
+    }
+
+    fun handleEvent(signinEvent: SigninEvent) {
+        when (signinEvent) {
+            is SigninEvent.Signin -> {
+                onLogin()
+            }
+            is SigninEvent.Signup -> {
+                navigationManager.navigate(NavigationDirections.signup)
+            }
+            is SigninEvent.EmailChanged -> {
+                onChangeEmail(signinEvent.email)
+            }
+            is SigninEvent.PasswordChanged -> {
+                onChangePassword(signinEvent.password)
+            }
+        }
     }
 }
 
 data class SigninFormState(
     var errorEmail: Int? = null,
     var errorPassword: Int? = null,
+    var email: String? = null,
+    var password: String? = null,
+    var isLoading: Boolean = false
 ) {
-
     fun isValid(): Boolean = errorEmail == null && errorPassword == null
 }

@@ -1,5 +1,6 @@
 package com.augusto.bigball.di
 
+import com.augusto.bigball.NavigationManager
 import com.augusto.bigball.SigninViewModel
 import com.augusto.bigball.data.validator.EmailValidatorImpl
 import com.augusto.bigball.presentation.login.viewmodel.LoginHomeViewModel
@@ -10,6 +11,10 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
 
+    single {
+        NavigationManager()
+    }
+
     viewModel {
         SignupViewModel(Dispatchers.IO, EmailValidatorImpl())
     }
@@ -19,6 +24,6 @@ val viewModelModule = module {
     }
 
     viewModel {
-        SigninViewModel(Dispatchers.IO, EmailValidatorImpl())
+        SigninViewModel(Dispatchers.IO, EmailValidatorImpl(), get())
     }
 }

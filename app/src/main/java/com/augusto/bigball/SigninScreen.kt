@@ -20,7 +20,7 @@ import com.augusto.bigball.presentation.PrimaryButton
 import com.augusto.bigball.ui.theme.BigBallTheme
 
 @Composable
-fun SigninScreen(signinViewModel: SigninViewModel, toSignup: () -> Unit) {
+fun SigninScreen(signinFormState: SigninFormState, handleEvent: (signinEvent: SigninEvent) -> Unit) {
     BigBallTheme {
         Surface(
             color = MaterialTheme.colors.primary
@@ -38,13 +38,13 @@ fun SigninScreen(signinViewModel: SigninViewModel, toSignup: () -> Unit) {
 
                     InputText(
                         label = stringResource(id = R.string.email),
-                        value = signinViewModel.email,
-                        error = if (signinViewModel.signinFormState.errorEmail != null) stringResource(
-                            id = signinViewModel.signinFormState.errorEmail!!
+                        value = signinFormState.email,
+                        error = if (signinFormState.errorEmail != null) stringResource(
+                            id = signinFormState.errorEmail!!
                         ) else null,
-                        enabled = !signinViewModel.loadingForm,
+                        enabled = !signinFormState.isLoading,
                         onValueChange = {
-                            signinViewModel.onChangeEmail(it)
+                            handleEvent(SigninEvent.EmailChanged(it))
                         }
                     )
 
@@ -52,14 +52,14 @@ fun SigninScreen(signinViewModel: SigninViewModel, toSignup: () -> Unit) {
 
                     InputText(
                         label = stringResource(id = R.string.password),
-                        value = signinViewModel.password,
+                        value = signinFormState.password,
                         visualTransformation = PasswordVisualTransformation(),
-                        error = if (signinViewModel.signinFormState.errorPassword != null) stringResource(
-                            id = signinViewModel.signinFormState.errorPassword!!
+                        error = if (signinFormState.errorPassword != null) stringResource(
+                            id = signinFormState.errorPassword!!
                         ) else null,
-                        enabled = !signinViewModel.loadingForm,
+                        enabled = !signinFormState.isLoading,
                         onValueChange = {
-                            signinViewModel.onChangePassword(it)
+                            handleEvent(SigninEvent.PasswordChanged(it))
                         },
                     )
 
@@ -68,9 +68,9 @@ fun SigninScreen(signinViewModel: SigninViewModel, toSignup: () -> Unit) {
                     PrimaryButton(
                         modifier = Modifier.fillMaxWidth(),
                         text = stringResource(id = R.string.signin),
-                        enabled = !signinViewModel.loadingForm && signinViewModel.signinFormState.isValid()
+                        enabled = !signinFormState.isLoading && signinFormState.isValid()
                     ) {
-                        signinViewModel.onLogin()
+                        handleEvent(SigninEvent.Signin)
                     }
 
                     Spacer(modifier = Modifier.height(73.dp))
@@ -82,14 +82,14 @@ fun SigninScreen(signinViewModel: SigninViewModel, toSignup: () -> Unit) {
                         Text(
                             text = "Cadastre-se",
                             Modifier.clickable {
-                                toSignup()
+                                handleEvent(SigninEvent.Signup)
                             },
                             fontWeight = FontWeight.Bold
                         )
                     }
                 }
 
-                if (signinViewModel.loadingForm) {
+                if (signinFormState.isLoading) {
                     Loading()
                 }
             }
