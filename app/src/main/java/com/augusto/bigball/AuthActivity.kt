@@ -8,6 +8,8 @@ import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.augusto.bigball.ui.navigation.NavigationDirections
+import com.augusto.bigball.ui.navigation.NavigationManager
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -27,15 +29,15 @@ class AuthActivity : AppCompatActivity() {
                 }
             }
 
-            NavHost(navController = navController, startDestination = NavigationDirections.signin.destination) {
-                composable(NavigationDirections.signin.destination) {
+            NavHost(navController = navController, startDestination = AuthDirections.signin.destination) {
+                composable(AuthDirections.signin.destination) {
                     val vm = getViewModel<SigninViewModel>()
                     SigninScreen(
                         signinFormState = vm.signinFormState,
                         handleEvent = vm::handleEvent
                     )
                 }
-                composable(NavigationDirections.signup.destination) {
+                composable(AuthDirections.signup.destination) {
                     val vm = getViewModel<SignupViewModel>()
                     SignupScreen(
                         signupViewModel = vm,

@@ -1,10 +1,10 @@
 package com.augusto.bigball.di
 
-import com.augusto.bigball.NavigationManager
 import com.augusto.bigball.SigninViewModel
 import com.augusto.bigball.data.validator.EmailValidatorImpl
 import com.augusto.bigball.presentation.login.viewmodel.LoginHomeViewModel
 import com.augusto.bigball.SignupViewModel
+import com.augusto.bigball.ui.navigation.NavigationManager
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

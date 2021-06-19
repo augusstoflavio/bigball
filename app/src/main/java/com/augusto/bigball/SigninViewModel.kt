@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.augusto.bigball.data.validator.EmailValidator
 import com.augusto.bigball.presentation.bases.BaseViewModel
+import com.augusto.bigball.ui.navigation.NavigationManager
 import kotlinx.coroutines.CoroutineDispatcher
 
 class SigninViewModel(
@@ -62,7 +63,7 @@ class SigninViewModel(
         }
 
         signinFormState = signinFormState.copy(isLoading = false)
-        navigationManager.navigate(NavigationDirections.signup)
+        navigationManager.navigate(AuthDirections.signup)
     }
 
     fun handleEvent(signinEvent: SigninEvent) {
@@ -71,7 +72,7 @@ class SigninViewModel(
                 onLogin()
             }
             is SigninEvent.Signup -> {
-                navigationManager.navigate(NavigationDirections.signup)
+                navigationManager.navigate(AuthDirections.signup)
             }
             is SigninEvent.EmailChanged -> {
                 onChangeEmail(signinEvent.email)
