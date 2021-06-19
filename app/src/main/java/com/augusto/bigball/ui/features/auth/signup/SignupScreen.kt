@@ -15,7 +15,7 @@ import com.augusto.bigball.presentation.PrimaryButton
 import com.augusto.bigball.ui.theme.BigBallTheme
 
 @Composable
-fun SignupScreen(signupViewModel: SignupViewModel, toBack: () -> Unit) {
+fun SignupScreen(signupFormState: SignupFormState, handleEvent: (SignupEvent) -> Unit) {
     BigBallTheme {
         Scaffold(
             topBar = {
@@ -24,7 +24,9 @@ fun SignupScreen(signupViewModel: SignupViewModel, toBack: () -> Unit) {
                         Text(text = stringResource(id = R.string.cadastre_se))
                     },
                     navigationIcon = {
-                        IconButton(onClick = toBack) {
+                        IconButton(onClick = {
+                            handleEvent(SignupEvent.Signin)
+                        }) {
                             Icon(Icons.Filled.ArrowBack,"")
                         }
                     },
@@ -47,13 +49,13 @@ fun SignupScreen(signupViewModel: SignupViewModel, toBack: () -> Unit) {
 
                         InputText(
                             label = stringResource(id = R.string.name),
-                            value = signupViewModel.email,
-                            error = if (signupViewModel.signupFormState.errorEmail != null) stringResource(
-                                id = signupViewModel.signupFormState.errorEmail!!
+                            value = signupFormState.name,
+                            error = if (signupFormState.errorName != null) stringResource(
+                                id = signupFormState.errorName!!
                             ) else null,
-                            enabled = !signupViewModel.loadingForm,
+                            enabled = !signupFormState.isLoading,
                             onValueChange = {
-                                signupViewModel.onChangeEmail(it)
+                                handleEvent(SignupEvent.NameChanged(it))
                             }
                         )
 
@@ -61,13 +63,13 @@ fun SignupScreen(signupViewModel: SignupViewModel, toBack: () -> Unit) {
 
                         InputText(
                             label = stringResource(id = R.string.email),
-                            value = signupViewModel.email,
-                            error = if (signupViewModel.signupFormState.errorEmail != null) stringResource(
-                                id = signupViewModel.signupFormState.errorEmail!!
+                            value = signupFormState.email,
+                            error = if (signupFormState.errorEmail != null) stringResource(
+                                id = signupFormState.errorEmail!!
                             ) else null,
-                            enabled = !signupViewModel.loadingForm,
+                            enabled = !signupFormState.isLoading,
                             onValueChange = {
-                                signupViewModel.onChangeEmail(it)
+                                handleEvent(SignupEvent.EmailChanged(it))
                             }
                         )
 
@@ -75,13 +77,13 @@ fun SignupScreen(signupViewModel: SignupViewModel, toBack: () -> Unit) {
 
                         InputText(
                             label = stringResource(id = R.string.password),
-                            value = signupViewModel.email,
-                            error = if (signupViewModel.signupFormState.errorEmail != null) stringResource(
-                                id = signupViewModel.signupFormState.errorEmail!!
+                            value = signupFormState.password,
+                            error = if (signupFormState.errorPassword != null) stringResource(
+                                id = signupFormState.errorPassword!!
                             ) else null,
-                            enabled = !signupViewModel.loadingForm,
+                            enabled = !signupFormState.isLoading,
                             onValueChange = {
-                                signupViewModel.onChangeEmail(it)
+                                handleEvent(SignupEvent.PasswordChanged(it))
                             }
                         )
 
@@ -89,13 +91,13 @@ fun SignupScreen(signupViewModel: SignupViewModel, toBack: () -> Unit) {
 
                         InputText(
                             label = stringResource(id = R.string.password_confirmation),
-                            value = signupViewModel.email,
-                            error = if (signupViewModel.signupFormState.errorEmail != null) stringResource(
-                                id = signupViewModel.signupFormState.errorEmail!!
+                            value = signupFormState.passwordConfirmation,
+                            error = if (signupFormState.errorPasswordConfirmation != null) stringResource(
+                                id = signupFormState.errorPasswordConfirmation!!
                             ) else null,
-                            enabled = !signupViewModel.loadingForm,
+                            enabled = !signupFormState.isLoading,
                             onValueChange = {
-                                signupViewModel.onChangeEmail(it)
+                                handleEvent(SignupEvent.PasswordConfirmationChanged(it))
                             }
                         )
 
@@ -104,9 +106,9 @@ fun SignupScreen(signupViewModel: SignupViewModel, toBack: () -> Unit) {
                         PrimaryButton(
                             modifier = Modifier.fillMaxWidth(),
                             text = "Cadastrar",
-                            enabled = !signupViewModel.loadingForm && signupViewModel.signupFormState.isValid()
+                            enabled = !signupFormState.isLoading && signupFormState.isValid()
                         ) {
-                            signupViewModel.onSignup()
+                            handleEvent(SignupEvent.Signup)
                         }
                     }
                 }

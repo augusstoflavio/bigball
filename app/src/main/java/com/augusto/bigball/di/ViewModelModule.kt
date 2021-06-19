@@ -16,7 +16,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        SignupViewModel(Dispatchers.IO, EmailValidatorImpl())
+        SignupViewModel(Dispatchers.IO, EmailValidatorImpl(), get())
     }
 
     viewModel {

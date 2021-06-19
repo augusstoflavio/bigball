@@ -3,95 +3,109 @@ package com.augusto.bigball.ui.features.auth.signup
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.MutableLiveData
 import com.augusto.bigball.R
 import com.augusto.bigball.data.validator.EmailValidator
 import com.augusto.bigball.presentation.bases.BaseViewModel
+import com.augusto.bigball.ui.navigation.NavigationDirections
+import com.augusto.bigball.ui.navigation.NavigationManager
 import kotlinx.coroutines.CoroutineDispatcher
 
 class SignupViewModel(
     private val defaultDispatcher: CoroutineDispatcher,
-    private val emailValidator: EmailValidator
+    private val emailValidator: EmailValidator,
+    private val navigationManager: NavigationManager
 ) : BaseViewModel(defaultDispatcher) {
 
     var signupFormState by mutableStateOf(SignupFormState())
         private set
 
-    var name by mutableStateOf<String?>(null)
-        private set
-
-    var email by mutableStateOf<String?>(null)
-        private set
-
-    var password by mutableStateOf<String?>(null)
-        private set
-
-    var passwordConfirmation by mutableStateOf<String?>(null)
-        private set
-
-    val registered = MutableLiveData<Boolean>()
-
-    var loadingForm by mutableStateOf(false)
-        private set
-
     private fun validFields() {
-        signupFormState = SignupFormState(
-            errorName = getErrorName(),
-            errorEmail = getErrorEmail(),
-            errorPassword = getErrorPassword(),
-            errorPasswordConfirmation = getErrorPasswordConfirmation(),
+        signupFormState = signupFormState.copy(
+            errorName = getErrorName(signupFormState.name),
+            errorPassword = getErrorPassword(signupFormState.password),
+            errorEmail = getErrorPassword(signupFormState.email),
+            errorPasswordConfirmation = getErrorPasswordConfirmation(signupFormState.passwordConfirmation),
         )
     }
 
-    private fun getErrorName(): Int? {
+    private fun getErrorName(name: String?): Int? {
         return null
     }
 
-    private fun getErrorEmail(): Int? {
+    private fun getErrorPasswordConfirmation(passwordConfirmation: String?): Int? {
+        return null
+    }
+
+    private fun getErrorEmail(email: String?): Int? {
         if (email.isNullOrEmpty()) {
             return R.string.required_email
-        } else if (!emailValidator.isValid(email = email!!)) {
+        } else if (!emailValidator.isValid(email = email)) {
             return R.string.invalid_email
         }
 
         return null
     }
 
-    private fun getErrorPassword(): Int? {
+    private fun getErrorPassword(password: String?): Int? {
         if (password.isNullOrEmpty()) {
             return R.string.required_password
-        } else if (password!!.length < 5) {
+        } else if (password.length < 5) {
             return R.string.invalid_size_password
         }
 
         return null
     }
 
-    private fun getErrorPasswordConfirmation(): Int? {
-        return null
+    private fun onChangeName(name: String) {
+        signupFormState = signupFormState.copy(name = name, errorName = getErrorName(name = name))
     }
 
-    fun onChangeEmail(email: String) {
-        this.email = email
-        signupFormState.errorEmail = getErrorEmail()
+    private fun onChangeEmail(email: String) {
+        signupFormState = signupFormState.copy(email = email, errorEmail = getErrorEmail(email = email))
     }
 
-    fun onChangePassword(password: String) {
-        this.password = password
-        signupFormState.errorPassword = getErrorPassword()
+    private fun onChangePassword(password: String) {
+        signupFormState = signupFormState.copy(password = password, errorPassword = getErrorPassword(password = password))
+    }
+
+    private fun onChangePasswordConfirmation(password: String) {
+        signupFormState = signupFormState.copy(passwordConfirmation = password, errorPasswordConfirmation = getErrorPasswordConfirmation(passwordConfirmation = password))
     }
 
     fun onSignup() {
-        loadingForm = true
+        signupFormState = signupFormState.copy(isLoading = true)
 
         validFields()
 
         if (!signupFormState.isValid()) {
-            loadingForm = false
+            signupFormState = signupFormState.copy(isLoading = false)
             return
         }
 
-//        logado.postValue(true)
-//        loadingForm = false
+        signupFormState = signupFormState.copy(isLoading = false)
+//        navigationManager.navigate(AuthDirections.signup)
+    }
+
+    fun handleEvent(signupEvent: SignupEvent) {
+        when (signupEvent) {
+            is SignupEvent.Signin -> {
+                navigationManager.navigate(NavigationDirections.back)
+            }
+            is SignupEvent.Signup -> {
+                onSignup()
+            }
+            is SignupEvent.NameChanged -> {
+                onChangeName(signupEvent.name)
+            }
+            is SignupEvent.EmailChanged -> {
+                onChangeEmail(signupEvent.email)
+            }
+            is SignupEvent.PasswordChanged -> {
+                onChangePassword(signupEvent.password)
+            }
+            is SignupEvent.PasswordConfirmationChanged -> {
+                onChangePasswordConfirmation(signupEvent.password)
+            }
+        }
     }
 }
