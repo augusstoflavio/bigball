@@ -9,6 +9,7 @@ import com.augusto.bigball.core.domain.useCase.Signin
 import com.augusto.bigball.data.validator.EmailValidator
 import com.augusto.bigball.presentation.bases.BaseViewModel
 import com.augusto.bigball.ui.features.auth.AuthDirections
+import com.augusto.bigball.ui.features.bet.BetDirections
 import com.augusto.bigball.ui.navigation.NavigationManager
 import kotlinx.coroutines.CoroutineDispatcher
 
@@ -70,7 +71,7 @@ class SigninViewModel(
         run {
             when (val result = signin.invoke(signinFormState.email!!, signinFormState.password!!)) {
                 is Result.Success -> {
-                    navigationManager.navigate(AuthDirections.signup)
+                    navigationManager.navigate(BetDirections.root)
                 }
                 is Result.Failure -> {
                     signinFormState = signinFormState.copy(error = result.error.message)

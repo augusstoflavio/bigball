@@ -15,7 +15,7 @@ class AuthRepositoryImpl(private val authDataSource: AuthDataSource, private val
         return authDataSource.signup(name, email, password, passwordConfirmation)
     }
 
-    override suspend fun isLoggedIn(): Boolean {
+    override fun isLoggedIn(): Boolean {
         return authLocalDataSource.isLoggedIn()
     }
 

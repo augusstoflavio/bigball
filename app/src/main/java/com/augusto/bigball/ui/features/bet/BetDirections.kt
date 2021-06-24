@@ -1,28 +1,28 @@
-package com.augusto.bigball.ui.features.auth
+package com.augusto.bigball.ui.features.bet
 
 import androidx.navigation.compose.NamedNavArgument
 import com.augusto.bigball.ui.navigation.NavigationCommand
 
-object AuthDirections {
+object BetDirections {
 
     val root = object : NavigationCommand {
 
         override val arguments = emptyList<NamedNavArgument>()
 
-        override val destination = "auth"
+        override val destination = "bet"
     }
 
-    val signup  = object : NavigationCommand {
+    val bets  = object : NavigationCommand {
 
         override val arguments = emptyList<NamedNavArgument>()
 
-        override val destination = "auth.signup"
+        override val destination = "bet.bets"
     }
 
-    val signin = object : NavigationCommand {
+    val classification = object : NavigationCommand {
 
         override val arguments = emptyList<NamedNavArgument>()
 
-        override val destination = "auth.signin"
+        override val destination = "bet.classification"
     }
 }

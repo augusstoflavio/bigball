@@ -9,7 +9,7 @@ class NavigationManager {
     fun navigate(
         directions: NavigationCommand
     ) {
-        commands.value = directions
+        commands.postValue(directions)
     }
 
 }
