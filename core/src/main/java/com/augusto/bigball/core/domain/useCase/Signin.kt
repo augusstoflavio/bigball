@@ -6,6 +6,10 @@ import com.augusto.bigball.core.domain.entity.Result
 class Signin(private val authRepository: AuthRepository) {
 
     suspend operator fun invoke(email: String, password: String): Result<String> {
-        return authRepository.signin(email, password)
+        val result = authRepository.signin(email, password)
+        if (result is Result.Success) {
+            authRepository.saveUser(email, result.data)
+        }
+        return result
     }
 }

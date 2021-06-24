@@ -4,6 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.augusto.bigball.R
+import com.augusto.bigball.core.domain.entity.Result
+import com.augusto.bigball.core.domain.useCase.Signin
 import com.augusto.bigball.data.validator.EmailValidator
 import com.augusto.bigball.presentation.bases.BaseViewModel
 import com.augusto.bigball.ui.features.auth.AuthDirections
@@ -11,9 +13,10 @@ import com.augusto.bigball.ui.navigation.NavigationManager
 import kotlinx.coroutines.CoroutineDispatcher
 
 class SigninViewModel(
-    private val defaultDispatcher: CoroutineDispatcher,
+    defaultDispatcher: CoroutineDispatcher,
     private val emailValidator: EmailValidator,
-    private val navigationManager: NavigationManager
+    private val navigationManager: NavigationManager,
+    private val signin: Signin
 ) : BaseViewModel(defaultDispatcher) {
 
     var signinFormState by mutableStateOf(SigninFormState())
@@ -64,8 +67,17 @@ class SigninViewModel(
             return
         }
 
-        signinFormState = signinFormState.copy(isLoading = false)
-        navigationManager.navigate(AuthDirections.signup)
+        run {
+            when (val result = signin.invoke(signinFormState.email!!, signinFormState.password!!)) {
+                is Result.Success -> {
+                    navigationManager.navigate(AuthDirections.signup)
+                }
+                is Result.Failure -> {
+                    signinFormState = signinFormState.copy(error = result.error.message)
+                }
+            }
+            signinFormState = signinFormState.copy(isLoading = false)
+        }
     }
 
     fun handleEvent(signinEvent: SigninEvent) {
@@ -81,6 +93,9 @@ class SigninViewModel(
             }
             is SigninEvent.PasswordChanged -> {
                 onChangePassword(signinEvent.password)
+            }
+            is SigninEvent.DismissErrorDialog -> {
+                signinFormState = signinFormState.copy(error = null)
             }
         }
     }

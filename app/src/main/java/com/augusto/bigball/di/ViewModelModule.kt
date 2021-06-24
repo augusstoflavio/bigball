@@ -2,7 +2,6 @@ package com.augusto.bigball.di
 
 import com.augusto.bigball.ui.features.auth.signin.SigninViewModel
 import com.augusto.bigball.data.validator.EmailValidatorImpl
-import com.augusto.bigball.presentation.login.viewmodel.LoginHomeViewModel
 import com.augusto.bigball.ui.features.auth.signup.SignupViewModel
 import com.augusto.bigball.ui.navigation.NavigationManager
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +19,6 @@ val viewModelModule = module {
     }
 
     viewModel {
-        LoginHomeViewModel(get())
-    }
-
-    viewModel {
-        SigninViewModel(Dispatchers.IO, EmailValidatorImpl(), get())
+        SigninViewModel(Dispatchers.IO, EmailValidatorImpl(), get(), get())
     }
 }

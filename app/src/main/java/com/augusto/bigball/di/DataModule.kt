@@ -1,6 +1,7 @@
 package com.augusto.bigball.di
 
 import com.augusto.bigball.core.data.dataSource.AuthDataSource
+import com.augusto.bigball.core.data.dataSource.AuthLocalDataSource
 import com.augusto.bigball.core.data.dataSource.ClassificationDataSource
 import com.augusto.bigball.core.data.dataSource.MatchDataSource
 import com.augusto.bigball.core.data.repository.AuthRepositoryImpl
@@ -14,7 +15,6 @@ import com.augusto.bigball.data.dataSource.ClassificationDataSourceImpl
 import com.augusto.bigball.data.dataSource.MatchDataSourceImpl
 import com.augusto.bigball.data.local.Preferences
 import com.augusto.bigball.data.local.SharedDataSourceImpl
-import com.augusto.bigball.data.local.SharedPreferencesDataSource
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.module
@@ -39,11 +39,11 @@ val dataModule = module {
         Preferences(androidContext())
     }
 
-    single<SharedPreferencesDataSource> {
+    single<AuthLocalDataSource> {
         SharedDataSourceImpl(get(PREFERENCES))
     }
 
-    single<AuthRepository> { AuthRepositoryImpl(get()) }
+    single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
     single<MatchRepository> { MatchRepositoryImpl(get()) }
     single<ClassificationRepository> { ClassificationRepositoryImpl(get()) }
 }

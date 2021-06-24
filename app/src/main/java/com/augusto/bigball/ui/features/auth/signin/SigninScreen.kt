@@ -2,9 +2,7 @@ package com.augusto.bigball.ui.features.auth.signin
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.augusto.bigball.R
+import com.augusto.bigball.presentation.ErrorDialog
 import com.augusto.bigball.presentation.InputText
 import com.augusto.bigball.presentation.Loading
 import com.augusto.bigball.presentation.PrimaryButton
@@ -81,7 +80,7 @@ fun SigninScreen(signinFormState: SigninFormState, handleEvent: (signinEvent: Si
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "Cadastre-se",
+                            text = stringResource(id = R.string.cadastre_se),
                             Modifier.clickable {
                                 handleEvent(SigninEvent.Signup)
                             },
@@ -93,6 +92,13 @@ fun SigninScreen(signinFormState: SigninFormState, handleEvent: (signinEvent: Si
                 if (signinFormState.isLoading) {
                     Loading()
                 }
+
+                if (!signinFormState.error.isNullOrEmpty()) {
+                    ErrorDialog(title = stringResource(id = R.string.signin), message = signinFormState.error!!) {
+                        handleEvent(SigninEvent.DismissErrorDialog)
+                    }
+                }
+
             }
         }
     }

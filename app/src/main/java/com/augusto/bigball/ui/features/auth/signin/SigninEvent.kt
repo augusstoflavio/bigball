@@ -5,4 +5,5 @@ sealed class SigninEvent {
     object Signup : SigninEvent()
     data class EmailChanged(val email: String) : SigninEvent()
     data class PasswordChanged(val password: String) : SigninEvent()
+    object DismissErrorDialog : SigninEvent()
 }

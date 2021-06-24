@@ -1,15 +1,16 @@
 package com.augusto.bigball.presentation
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import android.app.AlertDialog
+import android.widget.AutoCompleteTextView
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
+import com.augusto.bigball.ui.features.auth.signin.SigninEvent
 
 @Composable
 fun Loading(modifier: Modifier = Modifier) {
@@ -60,4 +61,22 @@ fun PrimaryButton(modifier: Modifier, text: String, enabled: Boolean, onClick: (
     ) {
         Text(text = text)
     }
+}
+
+@Composable
+fun ErrorDialog(title: String, message: String, onDismissRequest: () -> Unit) {
+    AlertDialog(onDismissRequest = onDismissRequest,
+        title = {
+        Text(text = title)
+    }, text = {
+        Text(
+            text = message
+        )
+    }, buttons = {
+        Box(modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, bottom = 20.dp)) {
+            Button(onClick = onDismissRequest) {
+                Text(text = "Ok")
+            }
+        }
+    })
 }
