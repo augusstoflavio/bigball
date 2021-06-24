@@ -12,6 +12,6 @@ interface AuthService {
     @POST("auth/signin")
     suspend fun signin(@Body signinRequest: SigninRequest): Response<SigninResponse>
 
-    @POST("client/auth/signup")
+    @POST("auth/signup")
     suspend fun signup(@Body signupRequest: SignupRequest): Response<Unit>
 }

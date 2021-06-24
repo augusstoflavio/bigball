@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
                 if (command.destination == NavigationDirections.back.destination) {
                     navController.popBackStack()
                 } else if (command.destination.isNotEmpty()) {
+                    //TODO fixed bug fix error when rotating the screen
                     navController.navigate(command.destination)
                 }
             }

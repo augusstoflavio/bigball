@@ -9,7 +9,9 @@ data class SignupFormState(
     var email: String? = null,
     var password: String? = null,
     var passwordConfirmation: String? = null,
-    var isLoading: Boolean = false
+    var isLoading: Boolean = false,
+    var error: String? = null,
+    var registered: Boolean = false
 ) {
     fun isValid(): Boolean =
             errorName == null &&

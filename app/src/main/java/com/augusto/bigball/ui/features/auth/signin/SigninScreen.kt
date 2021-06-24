@@ -80,7 +80,7 @@ fun SigninScreen(signinFormState: SigninFormState, handleEvent: (signinEvent: Si
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = stringResource(id = R.string.cadastre_se),
+                            text = stringResource(id = R.string.signup),
                             Modifier.clickable {
                                 handleEvent(SigninEvent.Signup)
                             },

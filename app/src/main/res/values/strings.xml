@@ -7,7 +7,7 @@
     <string name="email">Email</string>
     <string name="name">Nome</string>
     <string name="senha">Senha</string>
-    <string name="cadastre_se">Cadastre-se</string>
+    <string name="signup">Cadastre-se</string>
     <string name="signin">Entrar</string>
     <string name="password">Senha</string>
     <string name="password_confirmation">Confirmação de senha</string>
@@ -16,4 +16,7 @@
     <string name="invalid_email">O e-mail é inválido</string>
     <string name="required_password">É necessário preencher a senha</string>
     <string name="invalid_size_password">A senha deverá ter no mínimo 5 caracteres</string>
+    <string name="required_name">O nome deve ter no mínimo 3 caracteres</string>
+    <string name="required_same_passwords">É necessário que as senhas sejam iguais</string>
+    <string name="registered">Cadastro realizado</string>
 </resources>

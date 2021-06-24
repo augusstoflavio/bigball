@@ -2,13 +2,14 @@ package com.augusto.bigball.data.api.request
 
 import com.squareup.moshi.Json
 
+//TODO moshi is not converting fields on request
 data class SignupRequest (
     @Json(name = "name")
-    var name: String,
+    val name: String,
     @Json(name = "email")
-    var email: String,
+    val email: String,
     @Json(name = "password")
-    var password: String,
+    val password: String,
     @Json(name = "password_confirmation")
-    var passwordConfirmation: String
+    val password_confirmation: String
 )

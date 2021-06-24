@@ -10,8 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.augusto.bigball.R
-import com.augusto.bigball.presentation.InputText
-import com.augusto.bigball.presentation.PrimaryButton
+import com.augusto.bigball.presentation.*
 import com.augusto.bigball.ui.theme.BigBallTheme
 
 @Composable
@@ -21,7 +20,7 @@ fun SignupScreen(signupFormState: SignupFormState, handleEvent: (SignupEvent) ->
             topBar = {
                 TopAppBar(
                     title = {
-                        Text(text = stringResource(id = R.string.cadastre_se))
+                        Text(text = stringResource(id = R.string.signup))
                     },
                     navigationIcon = {
                         IconButton(onClick = {
@@ -61,7 +60,7 @@ fun SignupScreen(signupFormState: SignupFormState, handleEvent: (SignupEvent) ->
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        InputText(
+                        InputEmail(
                             label = stringResource(id = R.string.email),
                             value = signupFormState.email,
                             error = if (signupFormState.errorEmail != null) stringResource(
@@ -75,7 +74,7 @@ fun SignupScreen(signupFormState: SignupFormState, handleEvent: (SignupEvent) ->
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        InputText(
+                        InputPassword(
                             label = stringResource(id = R.string.password),
                             value = signupFormState.password,
                             error = if (signupFormState.errorPassword != null) stringResource(
@@ -89,7 +88,7 @@ fun SignupScreen(signupFormState: SignupFormState, handleEvent: (SignupEvent) ->
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        InputText(
+                        InputPassword(
                             label = stringResource(id = R.string.password_confirmation),
                             value = signupFormState.passwordConfirmation,
                             error = if (signupFormState.errorPasswordConfirmation != null) stringResource(
@@ -109,6 +108,22 @@ fun SignupScreen(signupFormState: SignupFormState, handleEvent: (SignupEvent) ->
                             enabled = !signupFormState.isLoading && signupFormState.isValid()
                         ) {
                             handleEvent(SignupEvent.Signup)
+                        }
+                    }
+
+                    if (signupFormState.isLoading) {
+                        Loading()
+                    }
+
+                    if (!signupFormState.error.isNullOrEmpty()) {
+                        ErrorDialog(title = stringResource(id = R.string.signup), message = signupFormState.error!!) {
+                            handleEvent(SignupEvent.DismissErrorDialog)
+                        }
+                    }
+
+                    if (signupFormState.registered) {
+                        ErrorDialog(title = stringResource(id = R.string.signup), message = stringResource(id = R.string.registered)) {
+                            handleEvent(SignupEvent.Signin)
                         }
                     }
                 }

@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="73dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="@string/cadastre_se"
+        android:text="@string/signup"
         android:textColor="@color/white"
         android:textSize="@dimen/size14"
         app:layout_constraintEnd_toEndOf="parent"
