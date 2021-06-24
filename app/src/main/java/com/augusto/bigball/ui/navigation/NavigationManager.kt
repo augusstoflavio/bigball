@@ -1,10 +1,10 @@
 package com.augusto.bigball.ui.navigation
 
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.augusto.bigball.helper.SingleLiveEvent
 
 class NavigationManager {
 
-    var commands = MutableStateFlow(NavigationDirections.Default)
+    var commands = SingleLiveEvent<NavigationCommand>()
 
     fun navigate(
         directions: NavigationCommand

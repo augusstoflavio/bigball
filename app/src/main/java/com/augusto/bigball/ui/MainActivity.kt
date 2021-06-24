@@ -3,7 +3,6 @@ package com.augusto.bigball.ui
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.collectAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -26,14 +25,13 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val navController = rememberNavController()
 
-            navigationManager.commands.collectAsState().value.also { command ->
-                if (command.destination == NavigationDirections.back.destination) {
+            navigationManager.commands.observe(this, {
+                if (it == NavigationDirections.back) {
                     navController.popBackStack()
-                } else if (command.destination.isNotEmpty()) {
-                    //TODO fixed bug fix error when rotating the screen
-                    navController.navigate(command.destination)
+                } else if (it.destination.isNotEmpty()) {
+                    navController.navigate(it.destination)
                 }
-            }
+            })
 
             NavHost(navController = navController, startDestination = AuthDirections.signin.destination) {
                 composable(AuthDirections.signin.destination) {
