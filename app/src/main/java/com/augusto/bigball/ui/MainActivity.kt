@@ -35,17 +35,13 @@ class MainActivity : AppCompatActivity() {
 
             NavHost(navController = navController, startDestination = AuthDirections.signin.destination) {
                 composable(AuthDirections.signin.destination) {
-                    val vm = getViewModel<SigninViewModel>()
                     SigninScreen(
-                        signinFormState = vm.signinFormState,
-                        handleEvent = vm::handleEvent
+                        signinViewModel = getViewModel()
                     )
                 }
                 composable(AuthDirections.signup.destination) {
-                    val vm = getViewModel<SignupViewModel>()
                     SignupScreen(
-                        signupFormState = vm.signupFormState,
-                        handleEvent = vm::handleEvent
+                        signupViewModel = getViewModel()
                     )
                 }
             }

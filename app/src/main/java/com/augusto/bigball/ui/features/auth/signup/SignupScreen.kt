@@ -8,13 +8,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.augusto.bigball.R
 import com.augusto.bigball.presentation.*
 import com.augusto.bigball.ui.theme.BigBallTheme
 
 @Composable
-fun SignupScreen(signupFormState: SignupFormState, handleEvent: (SignupEvent) -> Unit) {
+fun SignupScreen(signupViewModel: SignupViewModel) {
+    SignupScreen(
+        signupFormState = signupViewModel.signupFormState,
+        handleEvent = signupViewModel::handleEvent
+    )
+}
+
+@Composable
+private fun SignupScreen(signupFormState: SignupFormState, handleEvent: (SignupEvent) -> Unit) {
     BigBallTheme {
         Scaffold(
             topBar = {
@@ -129,5 +138,13 @@ fun SignupScreen(signupFormState: SignupFormState, handleEvent: (SignupEvent) ->
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun Preview() {
+    SignupScreen(signupFormState = SignupFormState()) {
+
     }
 }
