@@ -19,4 +19,7 @@
     <string name="required_name">O nome deve ter no mínimo 3 caracteres</string>
     <string name="required_same_passwords">É necessário que as senhas sejam iguais</string>
     <string name="registered">Cadastro realizado</string>
+    <string name="bets">Apostas</string>
+    <string name="classification">Classificação</string>
+    <string name="profile">Perfil</string>
 </resources>

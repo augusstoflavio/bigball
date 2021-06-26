@@ -3,7 +3,6 @@ package com.augusto.bigball.ui
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.Text
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,6 +11,7 @@ import com.augusto.bigball.ui.features.auth.AuthDirections
 import com.augusto.bigball.ui.features.auth.signin.SigninScreen
 import com.augusto.bigball.ui.features.auth.signup.SignupScreen
 import com.augusto.bigball.ui.features.bet.BetDirections
+import com.augusto.bigball.ui.features.bet.BetMainScreen
 import com.augusto.bigball.ui.navigation.NavigationDirections
 import com.augusto.bigball.ui.navigation.NavigationManager
 import org.koin.android.ext.android.inject
@@ -52,12 +52,9 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                 }
-                navigation(startDestination = BetDirections.bets.destination, route = BetDirections.root.destination) {
-                    composable(BetDirections.bets.destination) {
-                        Text(text = "Apostas")
-                    }
-                    composable(BetDirections.classification.destination) {
-                        Text(text = "Classificação")
+                navigation(startDestination = BetDirections.main.destination, route = BetDirections.root.destination) {
+                    composable(BetDirections.main.destination) {
+                        BetMainScreen()
                     }
                 }
             }

@@ -12,17 +12,31 @@ object BetDirections {
         override val destination = "bet"
     }
 
+    val main  = object : NavigationCommand {
+
+        override val arguments = emptyList<NamedNavArgument>()
+
+        override val destination = "bet.navigation"
+    }
+
     val bets  = object : NavigationCommand {
 
         override val arguments = emptyList<NamedNavArgument>()
 
-        override val destination = "bet.bets"
+        override val destination = "bet.navigation.bets"
     }
 
     val classification = object : NavigationCommand {
 
         override val arguments = emptyList<NamedNavArgument>()
 
-        override val destination = "bet.classification"
+        override val destination = "bet.navigation.classification"
+    }
+
+    val profile  = object : NavigationCommand {
+
+        override val arguments = emptyList<NamedNavArgument>()
+
+        override val destination = "bet.navigation.profile"
     }
 }
