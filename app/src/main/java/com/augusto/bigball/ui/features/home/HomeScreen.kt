@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.augusto.bigball.R
 import com.augusto.bigball.ui.features.home.bets.BetsScreen
 import com.augusto.bigball.ui.features.home.bets.BetsState
+import com.augusto.bigball.ui.features.home.bets.BetsViewModel
 import com.augusto.bigball.ui.features.home.bets.component.Match
 import com.augusto.bigball.ui.features.home.bets.component.Scoreboard
 import com.augusto.bigball.ui.features.home.bets.component.Team
@@ -22,7 +23,12 @@ import com.augusto.bigball.ui.features.home.classification.ClassificationScreen
 import com.augusto.bigball.ui.theme.BigBallTheme
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(betsViewModel: BetsViewModel) {
+    HomeScreen(betsState = betsViewModel.betsState)
+}
+
+@Composable
+private fun HomeScreen(betsState: BetsState) {
     val navController2 = rememberNavController()
 
     val items = listOf(

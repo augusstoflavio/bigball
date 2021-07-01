@@ -54,7 +54,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 navigation(startDestination = HomeDirections.main.destination, route = HomeDirections.root.destination) {
                     composable(HomeDirections.main.destination) {
-                        HomeScreen()
+                        HomeScreen(
+                            betsViewModel = getViewModel()
+                        )
                     }
                 }
             }
