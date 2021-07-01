@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.augusto.bigball.R
 import com.augusto.bigball.ui.features.bet.bets.BetsScreen
+import com.augusto.bigball.ui.features.bet.bets.ClassificationScreen
 import com.augusto.bigball.ui.theme.BigBallTheme
 
 @Composable
@@ -56,7 +57,7 @@ fun BetMainScreen() {
                     BetsScreen()
                 }
                 composable(BetDirections.classification.destination) {
-                    Text(text = stringResource(id = R.string.classification))
+                    ClassificationScreen()
                 }
                 composable(BetDirections.profile.destination) {
                     Text(text = stringResource(id = R.string.profile))
