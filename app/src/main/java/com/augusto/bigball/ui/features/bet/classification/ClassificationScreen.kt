@@ -1,4 +1,4 @@
-package com.augusto.bigball.ui.features.bet.bets
+package com.augusto.bigball.ui.features.bet.classification
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.augusto.bigball.R
 import com.augusto.bigball.presentation.Loading
 import com.augusto.bigball.ui.theme.BigBallTheme
-import kotlin.math.round
 
 @Preview(showBackground = true)
 @Composable

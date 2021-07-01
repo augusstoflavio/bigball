@@ -14,7 +14,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.augusto.bigball.R
 import com.augusto.bigball.ui.features.bet.bets.BetsScreen
-import com.augusto.bigball.ui.features.bet.bets.ClassificationScreen
+import com.augusto.bigball.ui.features.bet.bets.BetsState
+import com.augusto.bigball.ui.features.bet.bets.component.Match
+import com.augusto.bigball.ui.features.bet.bets.component.Scoreboard
+import com.augusto.bigball.ui.features.bet.bets.component.Team
+import com.augusto.bigball.ui.features.bet.classification.ClassificationScreen
 import com.augusto.bigball.ui.theme.BigBallTheme
 
 @Composable
@@ -54,7 +58,53 @@ fun BetMainScreen() {
                 modifier = Modifier.padding(bottom = 50.dp)
             ) {
                 composable(BetDirections.bets.destination) {
-                    BetsScreen()
+                    BetsScreen(
+                        BetsState(
+                            matchesPerformed = true,
+                            matchs = listOf(
+                                Match(
+                                    performed = false,
+                                    homeTeam = Team(
+                                        name = "Flamengo",
+                                        logo = R.drawable.ic_flamengo
+                                    ),
+                                    visitingTeam = Team(
+                                        name = "Palmeiras",
+                                        logo = R.drawable.ic_palmeiras
+                                    ),
+                                    bet = Scoreboard(
+                                        homeTeamGoals = 1,
+                                        visitingTeamGoals = 0
+                                    ),
+                                    result = Scoreboard(
+                                        homeTeamGoals = 5,
+                                        visitingTeamGoals = 0
+                                    ),
+                                    date = "13/10/1993 12:50"
+                                ),
+                                Match(
+                                    performed = false,
+                                    homeTeam = Team(
+                                        name = "Flamengo",
+                                        logo = R.drawable.ic_flamengo
+                                    ),
+                                    visitingTeam = Team(
+                                        name = "Palmeiras",
+                                        logo = R.drawable.ic_palmeiras
+                                    ),
+                                    bet = Scoreboard(
+                                        homeTeamGoals = 1,
+                                        visitingTeamGoals = 0
+                                    ),
+                                    result = Scoreboard(
+                                        homeTeamGoals = 5,
+                                        visitingTeamGoals = 0
+                                    ),
+                                    date = "13/10/1993 12:50"
+                                )
+                            )
+                        )
+                    )
                 }
                 composable(BetDirections.classification.destination) {
                     ClassificationScreen()
