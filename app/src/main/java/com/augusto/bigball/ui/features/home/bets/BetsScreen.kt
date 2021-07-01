@@ -1,4 +1,4 @@
-package com.augusto.bigball.ui.features.bet.bets
+package com.augusto.bigball.ui.features.home.bets
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.augusto.bigball.presentation.Loading
-import com.augusto.bigball.ui.features.bet.bets.component.Match
+import com.augusto.bigball.ui.features.home.bets.component.Match
 import com.augusto.bigball.ui.theme.BigBallTheme
 
 @Preview(showBackground = true)

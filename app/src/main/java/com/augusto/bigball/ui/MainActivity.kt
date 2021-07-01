@@ -10,8 +10,8 @@ import androidx.navigation.navigation
 import com.augusto.bigball.ui.features.auth.AuthDirections
 import com.augusto.bigball.ui.features.auth.signin.SigninScreen
 import com.augusto.bigball.ui.features.auth.signup.SignupScreen
-import com.augusto.bigball.ui.features.bet.BetDirections
-import com.augusto.bigball.ui.features.bet.BetMainScreen
+import com.augusto.bigball.ui.features.home.HomeDirections
+import com.augusto.bigball.ui.features.home.HomeScreen
 import com.augusto.bigball.ui.navigation.NavigationDirections
 import com.augusto.bigball.ui.navigation.NavigationManager
 import org.koin.android.ext.android.inject
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val startDestination = if (mainViewModel.isLoggedIn()) BetDirections.root.destination else AuthDirections.root.destination
+        val startDestination = if (mainViewModel.isLoggedIn()) HomeDirections.root.destination else AuthDirections.root.destination
 
         setContent {
             val navController = rememberNavController()
@@ -52,9 +52,9 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                 }
-                navigation(startDestination = BetDirections.main.destination, route = BetDirections.root.destination) {
-                    composable(BetDirections.main.destination) {
-                        BetMainScreen()
+                navigation(startDestination = HomeDirections.main.destination, route = HomeDirections.root.destination) {
+                    composable(HomeDirections.main.destination) {
+                        HomeScreen()
                     }
                 }
             }

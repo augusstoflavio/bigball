@@ -1,4 +1,4 @@
-package com.augusto.bigball.ui.features.bet.classification
+package com.augusto.bigball.ui.features.home.classification
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*

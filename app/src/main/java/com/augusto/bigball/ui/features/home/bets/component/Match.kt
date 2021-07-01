@@ -1,4 +1,4 @@
-package com.augusto.bigball.ui.features.bet.bets.component
+package com.augusto.bigball.ui.features.home.bets.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

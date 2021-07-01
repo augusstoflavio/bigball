@@ -1,4 +1,4 @@
-package com.augusto.bigball.ui.features.bet
+package com.augusto.bigball.ui.features.home
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
@@ -8,18 +8,18 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.augusto.bigball.R
 import com.augusto.bigball.ui.navigation.NavigationCommand
 
-sealed class TabItem(
+sealed class HomeTabItem(
     val command: NavigationCommand,
     val title: Int,
     val icon: ImageVector
 ) {
-    object Bets : TabItem(
-        BetDirections.bets, R.string.bets, Icons.Filled.Star
+    object Bets : HomeTabItem(
+        HomeDirections.bets, R.string.bets, Icons.Filled.Star
     )
-    object Classification : TabItem(
-        BetDirections.classification, R.string.classification, Icons.Filled.MilitaryTech
+    object Classification : HomeTabItem(
+        HomeDirections.classification, R.string.classification, Icons.Filled.MilitaryTech
     )
-    object Profile : TabItem(
-        BetDirections.profile, R.string.profile, Icons.Filled.Face
+    object Profile : HomeTabItem(
+        HomeDirections.profile, R.string.profile, Icons.Filled.Face
     )
 }

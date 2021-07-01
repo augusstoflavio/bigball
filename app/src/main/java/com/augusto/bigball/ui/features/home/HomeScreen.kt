@@ -1,4 +1,4 @@
-package com.augusto.bigball.ui.features.bet
+package com.augusto.bigball.ui.features.home
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -13,25 +13,25 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.augusto.bigball.R
-import com.augusto.bigball.ui.features.bet.bets.BetsScreen
-import com.augusto.bigball.ui.features.bet.bets.BetsState
-import com.augusto.bigball.ui.features.bet.bets.component.Match
-import com.augusto.bigball.ui.features.bet.bets.component.Scoreboard
-import com.augusto.bigball.ui.features.bet.bets.component.Team
-import com.augusto.bigball.ui.features.bet.classification.ClassificationScreen
+import com.augusto.bigball.ui.features.home.bets.BetsScreen
+import com.augusto.bigball.ui.features.home.bets.BetsState
+import com.augusto.bigball.ui.features.home.bets.component.Match
+import com.augusto.bigball.ui.features.home.bets.component.Scoreboard
+import com.augusto.bigball.ui.features.home.bets.component.Team
+import com.augusto.bigball.ui.features.home.classification.ClassificationScreen
 import com.augusto.bigball.ui.theme.BigBallTheme
 
 @Composable
-fun BetMainScreen() {
+fun HomeScreen() {
     val navController2 = rememberNavController()
 
     val items = listOf(
-        TabItem.Bets,
-        TabItem.Classification,
-        TabItem.Profile
+        HomeTabItem.Bets,
+        HomeTabItem.Classification,
+        HomeTabItem.Profile
     )
 
-    val currentRoute = remember { mutableStateOf(BetDirections.bets.destination) }
+    val currentRoute = remember { mutableStateOf(HomeDirections.bets.destination) }
 
     BigBallTheme {
         Scaffold(bottomBar = {
@@ -54,10 +54,10 @@ fun BetMainScreen() {
         }) {
             NavHost(
                 navController2,
-                startDestination = BetDirections.bets.destination,
+                startDestination = HomeDirections.bets.destination,
                 modifier = Modifier.padding(bottom = 50.dp)
             ) {
-                composable(BetDirections.bets.destination) {
+                composable(HomeDirections.bets.destination) {
                     BetsScreen(
                         BetsState(
                             matchesPerformed = true,
@@ -106,10 +106,10 @@ fun BetMainScreen() {
                         )
                     )
                 }
-                composable(BetDirections.classification.destination) {
+                composable(HomeDirections.classification.destination) {
                     ClassificationScreen()
                 }
-                composable(BetDirections.profile.destination) {
+                composable(HomeDirections.profile.destination) {
                     Text(text = stringResource(id = R.string.profile))
                 }
             }
