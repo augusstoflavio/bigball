@@ -19,6 +19,7 @@ import com.augusto.bigball.ui.theme.BigBallTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import com.augusto.bigball.R
 import com.augusto.bigball.ui.features.auth.signup.SignupEvent
 
@@ -30,68 +31,87 @@ fun BetsScreen() {
             Surface() {
                 Box() {
 
-                    LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        // Add 5 items
-                        items(95) { index ->
-                            Card(elevation = 4.dp,
-                                modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(9.dp),
-                                border = BorderStroke(1.dp, Color.Black),
-                                shape = RoundedCornerShape(8.dp)) {
+                    Column() {
+                        Row(
+                            horizontalArrangement = Arrangement.End,
+                            modifier = Modifier.fillMaxWidth().padding(9.dp)
+                        ) {
+                            Text(text = "Realizadas", style = MaterialTheme.typography.button)
 
-                                var modifier = Modifier.clickable {  }
-                                modifier = if (index > 5) {
-                                    modifier.alpha(0.6f).background(color = Color.LightGray)
-                                } else {
-                                    modifier.background(color = Color.Transparent)
-                                }
-                                modifier = modifier.padding(16.dp)
+                            Switch(
+                                checked = false,
+                                onCheckedChange = { },
+                                colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colors.primaryVariant)
+                            )
+                        }
 
-                                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier) {
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceEvenly,
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        Column(
-                                            horizontalAlignment = Alignment.CenterHorizontally,
-                                            modifier = Modifier.weight(1f)
+                        LazyColumn() {
+
+                            // Add 5 items
+                            items(95) { index ->
+                                Card(elevation = 4.dp,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(9.dp),
+                                    border = BorderStroke(1.dp, Color.Black),
+                                    shape = RoundedCornerShape(8.dp)) {
+
+                                    var modifier = Modifier.clickable {  }
+                                    modifier = if (index > 5) {
+                                        modifier
+                                            .alpha(0.6f)
+                                            .background(color = Color.LightGray)
+                                    } else {
+                                        modifier.background(color = Color.Transparent)
+                                    }
+                                    modifier = modifier.padding(16.dp)
+
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier) {
+                                        Row(
+                                            modifier = Modifier
+                                                .fillMaxWidth(),
+                                            horizontalArrangement = Arrangement.SpaceEvenly,
+                                            verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            Image(
-                                                painter = painterResource(R.drawable.ic_flamengo),
-                                                contentDescription = "Flamengo"
-                                            )
-                                            Text(text = "Flamengo", style = MaterialTheme.typography.subtitle1)
+                                            Column(
+                                                horizontalAlignment = Alignment.CenterHorizontally,
+                                                modifier = Modifier.weight(1f)
+                                            ) {
+                                                Image(
+                                                    painter = painterResource(R.drawable.ic_flamengo),
+                                                    contentDescription = "Flamengo"
+                                                )
+                                                Text(text = "Flamengo", style = MaterialTheme.typography.subtitle1)
+                                            }
+                                            Column(
+                                                horizontalAlignment = Alignment.CenterHorizontally,
+                                                modifier = Modifier.weight(1f)
+                                            ) {
+                                                Text(text = "1 - 1", style = MaterialTheme.typography.h6)
+                                                Text(text = "5 - 0", style = MaterialTheme.typography.overline)
+                                            }
+                                            Column(
+                                                horizontalAlignment = Alignment.CenterHorizontally,
+                                                modifier = Modifier.weight(1f)
+                                            ) {
+                                                Image(
+                                                    painter = painterResource(R.drawable.ic_palmeiras),
+                                                    contentDescription = "Palmeiras"
+                                                )
+                                                Text(text = "Palmeiras", style = MaterialTheme.typography.subtitle1)
+                                            }
                                         }
-                                        Column(
-                                            horizontalAlignment = Alignment.CenterHorizontally,
-                                            modifier = Modifier.weight(1f)
-                                        ) {
-                                            Text(text = "1 - 1", style = MaterialTheme.typography.h6)
-                                            Text(text = "5 - 0", style = MaterialTheme.typography.overline)
-                                        }
-                                        Column(
-                                            horizontalAlignment = Alignment.CenterHorizontally,
-                                            modifier = Modifier.weight(1f)
-                                        ) {
-                                            Image(
-                                                painter = painterResource(R.drawable.ic_palmeiras),
-                                                contentDescription = "Palmeiras"
-                                            )
-                                            Text(text = "Palmeiras", style = MaterialTheme.typography.subtitle1)
-                                        }
+
+                                        Spacer(Modifier.height(12.dp))
+
+                                        Text(text = "13/10/1992 13:55", style = MaterialTheme.typography.overline)
                                     }
 
-                                    Spacer(Modifier.height(12.dp))
-
-                                    Text(text = "13/10/1992 13:55", style = MaterialTheme.typography.overline)
                                 }
-
                             }
                         }
                     }
+
 
                     Loading()
                 }
